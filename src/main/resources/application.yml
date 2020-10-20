@@ -1,0 +1,45 @@
+
+server:
+  port: 8110
+  servlet:
+    context-path: /
+
+spring:
+  application:
+    name: cmkp-svc-cmm
+    cache:
+      type: NONE
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+    # DB는 로컬로 생성해서 url, username, password 기입할것
+    url: jdbc:mariadb://localhost:3306/cmkp?serverTimezone=Asia/Seoul
+#    url: jdbc:mysql://localhost:3306/cmkp?serverTimezone=Asia/Seoul
+    username: root
+    password: root
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+#    properties:
+#      hibernate:
+#        format_sql: true
+#    show-sql: true
+#    database: mysql
+#    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+
+mybatis:
+  mapper-locations: classpath*:sql/**/sql-*.xml
+  type-handlers-package: com.sktelecom.cbp.base.mybatis.handler
+  jdbc-type-for-null: true
+  transactional:
+    default-timeout: 5
+    batch-timeout: 6
+  configuration:
+    map-underscore-to-camel-case: true
+
+logging:
+  level:
+    jdbc.sqlonly: DEBUG
+    org.springframework.web: ERROR
+    com.sktelecom.cmkp.ccm: DEBUG
+    com.zaxxer.hikari.HikariDataSource: ERROR

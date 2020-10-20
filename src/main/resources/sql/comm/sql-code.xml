@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cbp.comm.code">
+
+<!--    <select id="selectCodeList" resultType="com.sktelecom.cmkp.ccm.dao.vo.CodeVo">-->
+<!--        SELECT-->
+<!--            CODE_ID,-->
+<!--            CODE_GRP,-->
+<!--            CODE,-->
+<!--            CODE_NM,-->
+<!--            CODE_NM_EN,-->
+<!--            ADD_INFO,-->
+<!--            DISPLAY_ORDER,-->
+<!--            USE_YN-->
+<!--        FROM-->
+<!--            CMKP_COMM_CODE-->
+<!--    </select>-->
+    <select id="selectCodeList" resultType="com.sktelecom.cmkp.ccm.dao.vo.CodeVo">
+        SELECT
+            C.CODE_ID,
+            C.CODE_GRP,
+            C.CODE,
+            C.CODE_NM,
+            C.CODE_NM_EN,
+            C.ADD_INFO,
+            C.DISPLAY_ORDER,
+            C.USE_YN
+        FROM
+            CMKP_COMM_CODE C
+        JOIN
+            CMKP_COMM_CODE_GRP G ON G.CODE_GRP = C.CODE_GRP
+        WHERE
+            C.CODE_GRP = #{ codeGrp }
+    </select>
+
+    <select id="selectCodeOne" resultType="com.sktelecom.cmkp.ccm.dao.vo.CodeVo">
+        SELECT
+            *
+        FROM
+            CMKP_COMM_CODE
+        WHERE 1=1
+        AND CODE_ID = #{ codeId }
+    </select>
+
+    <insert id="insertCode" parameterType="com.sktelecom.cmkp.ccm.dao.vo.CodeVo">
+  INSERT INTO CMKP_COMM_CODE (
+         CODE_GRP,
+         CODE,
+         CODE_NM,
+         CODE_NM_EN,
+         ADD_INFO,
+         DISPLAY_ORDER,
+         USE_YN
+    ) VALUES (
+         #{ codeGrp },
+         #{ code },
+         #{ codeNm },
+         #{ codeNmEn },
+         #{ addInfo },
+         #{ displayOrder },
+         #{ useYn }
+    )
+  </insert>
+
+    <update id="updateCode" parameterType="com.sktelecom.cmkp.ccm.dao.vo.CodeVo">
+        UPDATE CMKP_COMM_CODE
+        SET
+            CODE_GRP = #{ codeGrp },
+            CODE = #{ code },
+            CODE_NM = #{ codeNm },
+            CODE_NM_EN = #{ codeNmEn },
+            ADD_INFO = #{ addInfo },
+            DISPLAY_ORDER = #{ displayOrder },
+            USE_YN = #{ useYn }
+        WHERE 1=1
+        AND CODE_ID = #{ codeId }
+    </update>
+
+    <delete id="deleteCode" parameterType="com.sktelecom.cmkp.ccm.dao.vo.CodeVo">
+    DELETE FROM CMKP_COMM_CODE
+    WHERE 1=1
+    AND CODE_ID = #{ codeId }
+  </delete>
+
+</mapper>
